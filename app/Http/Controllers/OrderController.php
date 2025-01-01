@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class OrderController extends Controller
 {
-    // Place an Order
+    
     public function placeOrder(Request $request)
     {
         $validatedData = $request->validate([
@@ -24,13 +24,13 @@ class OrderController extends Controller
             'order_date' => 'required|date',
         ]);
 
-        // Check if product exists and has enough stock
+        
         $product = Product::find($validatedData['product_id']);
         if ($product->stock < $validatedData['quantity']) {
             return response()->json(['error' => 'Insufficient stock available'], 400);
         }
 
-        // Deduct stock and create order
+        
         $product->update(['stock' => $product->stock - $validatedData['quantity']]);
         Order::create(array_merge($validatedData, ['status' => 'placed']));
         return response()->json([

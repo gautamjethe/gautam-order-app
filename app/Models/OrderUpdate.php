@@ -15,7 +15,7 @@ class OrderUpdate extends Model
     ];
 
     protected $casts = [
-        'changes' => 'array', // Automatically convert JSON to array and back
+        'changes' => 'array', 
     ];
     public $timestamps = true;
     public function order()
